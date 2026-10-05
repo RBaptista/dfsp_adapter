@@ -12,6 +12,8 @@ public interface CustomerRepository {
 
   List<Customer> findAll();
 
+  List<Customer> findByDfsp(String fspId);
+
   Boolean deleteById(Long id);
 
 }

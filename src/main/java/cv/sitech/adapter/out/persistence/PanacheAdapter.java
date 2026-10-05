@@ -31,4 +31,12 @@ public abstract class PanacheAdapter<D, E, ID> {
   public Boolean deleteById(ID id) {
     return panache.deleteById(id);
   }
+
+  protected List<D> list(String query, Object... params) {
+    return panache.list(query, params).stream().map(mapper::toDomain).toList();
+  }
+
+  protected Optional<D> first(String query, Object... params) {
+    return panache.find(query, params).firstResultOptional().map(mapper::toDomain);
+  }
 }

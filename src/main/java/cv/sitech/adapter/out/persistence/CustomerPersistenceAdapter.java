@@ -1,5 +1,7 @@
 package cv.sitech.adapter.out.persistence;
 
+import java.util.List;
+
 import cv.sitech.adapter.out.entity.CustomerEntity;
 import cv.sitech.adapter.out.persistence.mapper.CustomerMapper;
 import cv.sitech.application.port.out.CustomerRepository;
@@ -17,6 +19,11 @@ public class CustomerPersistenceAdapter extends PanacheAdapter<Customer, Custome
   @Inject
   public CustomerPersistenceAdapter(CustomerPanacheRepository panache, CustomerMapper mapper) {
     super(panache, mapper);
+  }
+
+  @Override
+  public List<Customer> findByDfsp(String fspId) {
+    return list("dfspId", fspId);
   }
 
 }

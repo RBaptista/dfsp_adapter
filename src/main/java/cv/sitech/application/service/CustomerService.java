@@ -21,25 +21,31 @@ public class CustomerService implements CustomerUseCase {
 
   @Override
   @Transactional
-  public Customer create(String name, Contact contact, String address, Long nif) {
-    return customerRepository.save(new Customer(name, contact, address, nif));
+  public Customer create(String fspId, String name, Contact contact, String address, Long nif) {
+    return customerRepository.save(new Customer(name, contact, address, nif, fspId));
   }
 
   @Override
-  public Customer findById(Long id) {
-    return customerRepository.findById(id).orElseThrow(() -> new NotFoundException("Customer " + id + " not Found"));
+  public Customer findById(String fspId, Long id) {
+    return customerRepository.findById(id)
+        .filter(c -> fspId.equals(c.getDfspId()))
+        .orElseThrow(() -> new NotFoundException("Customer " + id + " not Found"));
   }
 
   @Override
-  public List<Customer> findAll() {
-    return customerRepository.findAll();
+  public List<Customer> findAll(String fspId) {
+    return customerRepository.findByDfsp(fspId);
   }
 
   @Override
   @Transactional
-  public Customer update(Long id, String name, Contact contact, String address, Long nif) {
-    Customer customer = findById(id);
+  public Customer update(String fspId, Long id, String name, Contact contact, String address, Long nif) {
+    Customer customer = findById(fspId, id);
     customer.setName(name);
+    if (contact != null && customer.getContact() != null) {
+      // keep the existing contact row
+      contact.setId(customer.getContact().getId());
+    }
     customer.setContact(contact);
     customer.setAddress(address);
     customer.setNif(nif);

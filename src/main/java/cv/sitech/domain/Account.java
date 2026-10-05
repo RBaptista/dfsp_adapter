@@ -1,16 +1,26 @@
 package cv.sitech.domain;
 
+import java.math.BigDecimal;
+
 public class Account {
   private Long id;
+  private AccountTypeEnum type;
   private Customer customer;
-  private Double balance;
-  private Float reservedBalance;
   private Dfsp dfsp;
+  // maintained by the ledger only
+  private BigDecimal balance = BigDecimal.ZERO;
+  private BigDecimal reservedBalance = BigDecimal.ZERO;
+  private BigDecimal pendingCredit = BigDecimal.ZERO;
 
-  public Account(Customer customer, Double balance, Dfsp dfsp) {
+  public Account(AccountTypeEnum type, Customer customer, Dfsp dfsp) {
+    this.type = type;
     this.customer = customer;
-    this.balance = balance != null ? balance : 0.0;
     this.dfsp = dfsp;
+  }
+
+  /** balance minus outgoing amounts held by reservations */
+  public BigDecimal availableBalance() {
+    return balance.subtract(reservedBalance);
   }
 
   public Long getId() {
@@ -21,6 +31,14 @@ public class Account {
     this.id = id;
   }
 
+  public AccountTypeEnum getType() {
+    return type;
+  }
+
+  public void setType(AccountTypeEnum type) {
+    this.type = type;
+  }
+
   public Customer getCustomer() {
     return customer;
   }
@@ -29,28 +47,36 @@ public class Account {
     this.customer = customer;
   }
 
-  public Double getBalance() {
-    return balance;
-  }
-
-  public void setBalance(Double balance) {
-    this.balance = balance;
-  }
-
-  public Float getReservedBalance() {
-    return reservedBalance;
-  }
-
-  public void setReservedBalance(Float reservedBalance) {
-    this.reservedBalance = reservedBalance;
-  }
-
   public Dfsp getDfsp() {
     return dfsp;
   }
 
   public void setDfsp(Dfsp dfsp) {
     this.dfsp = dfsp;
+  }
+
+  public BigDecimal getBalance() {
+    return balance;
+  }
+
+  public void setBalance(BigDecimal balance) {
+    this.balance = balance;
+  }
+
+  public BigDecimal getReservedBalance() {
+    return reservedBalance;
+  }
+
+  public void setReservedBalance(BigDecimal reservedBalance) {
+    this.reservedBalance = reservedBalance;
+  }
+
+  public BigDecimal getPendingCredit() {
+    return pendingCredit;
+  }
+
+  public void setPendingCredit(BigDecimal pendingCredit) {
+    this.pendingCredit = pendingCredit;
   }
 
 }

@@ -1,0 +1,1017 @@
+{
+  "info": {
+    "_postman_id": "f0f0818e-8f97-40ab-909e-edd8699e5076",
+    "name": "test quarkus hexa",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "57854395",
+    "_collection_link": "https://go.postman.co/collection/57854395-f0f0818e-8f97-40ab-909e-edd8699e5076?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "auth",
+      "item": [
+        {
+          "name": "login cvbank-user",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const jsonData = pm.response.json();",
+                  "pm.environment.set(\"token\", jsonData.access_token);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "grant_type",
+                  "value": "password"
+                },
+                {
+                  "key": "client_id",
+                  "value": "dfsp-simulator"
+                },
+                {
+                  "key": "username",
+                  "value": "cvbank-user"
+                },
+                {
+                  "key": "password",
+                  "value": "cvbank"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{keycloak_url}}/realms/dfsp/protocol/openid-connect/token",
+              "host": [
+                "{{keycloak_url}}"
+              ],
+              "path": [
+                "realms",
+                "dfsp",
+                "protocol",
+                "openid-connect",
+                "token"
+              ]
+            },
+            "description": "Password grant as cvbank-user; stores the access token in the environment's `token`."
+          },
+          "response": []
+        },
+        {
+          "name": "login cvwallet-user",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const jsonData = pm.response.json();",
+                  "pm.environment.set(\"token\", jsonData.access_token);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "grant_type",
+                  "value": "password"
+                },
+                {
+                  "key": "client_id",
+                  "value": "dfsp-simulator"
+                },
+                {
+                  "key": "username",
+                  "value": "cvwallet-user"
+                },
+                {
+                  "key": "password",
+                  "value": "cvwallet"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{keycloak_url}}/realms/dfsp/protocol/openid-connect/token",
+              "host": [
+                "{{keycloak_url}}"
+              ],
+              "path": [
+                "realms",
+                "dfsp",
+                "protocol",
+                "openid-connect",
+                "token"
+              ]
+            },
+            "description": "Password grant as cvwallet-user; stores the access token in the environment's `token`."
+          },
+          "response": []
+        },
+        {
+          "name": "login sim-admin",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const jsonData = pm.response.json();",
+                  "pm.environment.set(\"token\", jsonData.access_token);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "grant_type",
+                  "value": "password"
+                },
+                {
+                  "key": "client_id",
+                  "value": "dfsp-simulator"
+                },
+                {
+                  "key": "username",
+                  "value": "sim-admin"
+                },
+                {
+                  "key": "password",
+                  "value": "admin"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{keycloak_url}}/realms/dfsp/protocol/openid-connect/token",
+              "host": [
+                "{{keycloak_url}}"
+              ],
+              "path": [
+                "realms",
+                "dfsp",
+                "protocol",
+                "openid-connect",
+                "token"
+              ]
+            },
+            "description": "Password grant as sim-admin; stores the access token in the environment's `token`."
+          },
+          "response": []
+        }
+      ],
+      "description": "Each login replaces `token`; the DFSP-scoped endpoints act for the logged-in user's `fsp_id`."
+    },
+    {
+      "name": "dfsp",
+      "item": [
+        {
+          "name": "my dfsp",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/dfsp",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "dfsp"
+              ]
+            },
+            "description": "The logged-in DFSP with its POSITION and SETTLEMENT accounts."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "admin dfsps",
+      "item": [
+        {
+          "name": "list dfsps",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/admin/dfsps",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "dfsps"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create dfsp",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/admin/dfsps",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "dfsps"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fspId\": \"{{fspId}}\",\n  \"displayName\": \"New DFSP\",\n  \"currency\": \"CVE\",\n  \"netDebitCap\": 1000000,\n  \"initialPosition\": 0,\n  \"initialFunds\": 1000000\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get dfsp",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/admin/dfsps/{{fspId}}",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "dfsps",
+                "{{fspId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update dfsp",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/admin/dfsps/{{fspId}}",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "dfsps",
+                "{{fspId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"displayName\": \"New DFSP\",\n  \"netDebitCap\": 2000000\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "onboard dfsp in the hub",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/admin/dfsps/{{fspId}}/onboard",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "dfsps",
+                "{{fspId}}",
+                "onboard"
+              ]
+            },
+            "description": "Creates the participant in central-ledger, sets the NET_DEBIT_CAP, registers the callback endpoints and activates it."
+          },
+          "response": []
+        }
+      ],
+      "description": "Needs the `admin` role: log in as sim-admin."
+    },
+    {
+      "name": "customers",
+      "item": [
+        {
+          "name": "list customers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/customers",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "customers"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create customer",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/customers",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "customers"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Maria Silva\",\n  \"contact\": {\n    \"phone\": \"{{msisdn}}\",\n    \"telephone\": null,\n    \"email\": \"maria@example.cv\"\n  },\n  \"address\": \"Praia\",\n  \"nif\": 123456789\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code < 300) {",
+                  "  const body = pm.response.json();",
+                  "  pm.collectionVariables.set(\"customerId\", body.id);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "get customer",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/customers/{{customerId}}",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "customers",
+                "{{customerId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update customer",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/customers/{{customerId}}",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "customers",
+                "{{customerId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Maria Silva\",\n  \"contact\": {\n    \"phone\": \"{{msisdn}}\",\n    \"telephone\": null,\n    \"email\": \"maria.silva@example.cv\"\n  },\n  \"address\": \"Mindelo\",\n  \"nif\": 123456789\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "accounts",
+      "item": [
+        {
+          "name": "list accounts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/accounts",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "accounts"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "open account",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/accounts",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "accounts"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerId\": {{customerId}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code < 300) {",
+                  "  const body = pm.response.json();",
+                  "  pm.collectionVariables.set(\"accountId\", body.id);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "get account",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/accounts/{{accountId}}",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "accounts",
+                "{{accountId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deposit",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/accounts/{{accountId}}/deposits",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "accounts",
+                "{{accountId}}",
+                "deposits"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": 5000\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "statement",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/accounts/{{accountId}}/statement",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "accounts",
+                "{{accountId}}",
+                "statement"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "parties",
+      "item": [
+        {
+          "name": "list parties",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/parties",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "parties"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create party",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/parties",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "parties"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idType\": \"MSISDN\",\n  \"idValue\": \"{{msisdn}}\",\n  \"accountId\": {{accountId}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Maps the identifier to a CUSTOMER account and registers it in the hub's ALS."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code < 300) {",
+                  "  const body = pm.response.json();",
+                  "  pm.collectionVariables.set(\"partyId\", body.id);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "get party",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/parties/{{partyId}}",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "parties",
+                "{{partyId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "re-register party in the ALS",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/parties/{{partyId}}/registration",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "parties",
+                "{{partyId}}",
+                "registration"
+              ]
+            },
+            "description": "Use after the hub was reset."
+          },
+          "response": []
+        },
+        {
+          "name": "delete party",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/parties/{{partyId}}",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "parties",
+                "{{partyId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "lookup party",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/parties/lookup/MSISDN/{{payeeMsisdn}}",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "parties",
+                "lookup",
+                "MSISDN",
+                "{{payeeMsisdn}}"
+              ]
+            },
+            "description": "FSPIOP discovery through the hub."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "transfers",
+      "item": [
+        {
+          "name": "send transfer (auto accept)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/transfers",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "transfers"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"from\": {\n    \"idType\": \"MSISDN\",\n    \"idValue\": \"{{payerMsisdn}}\"\n  },\n  \"to\": {\n    \"idType\": \"MSISDN\",\n    \"idValue\": \"{{payeeMsisdn}}\"\n  },\n  \"amount\": 100,\n  \"currency\": \"CVE\",\n  \"note\": \"postman test\",\n  \"autoAccept\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code < 300) {",
+                  "  const body = pm.response.json();",
+                  "  pm.collectionVariables.set(\"transferId\", body.transferId);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "send transfer (manual accept)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/transfers",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "transfers"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"from\": {\n    \"idType\": \"MSISDN\",\n    \"idValue\": \"{{payerMsisdn}}\"\n  },\n  \"to\": {\n    \"idType\": \"MSISDN\",\n    \"idValue\": \"{{payeeMsisdn}}\"\n  },\n  \"amount\": 100,\n  \"currency\": \"CVE\",\n  \"note\": \"postman test\",\n  \"autoAccept\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Stops after discovery and after the quote; continue with accept party and accept quote."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code < 300) {",
+                  "  const body = pm.response.json();",
+                  "  pm.collectionVariables.set(\"transferId\", body.transferId);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "accept party",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/transfers/{{transferId}}/accept-party",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "transfers",
+                "{{transferId}}",
+                "accept-party"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accept\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "accept quote",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/transfers/{{transferId}}/accept-quote",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "transfers",
+                "{{transferId}}",
+                "accept-quote"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accept\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get transfer",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/transfers/{{transferId}}",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "transfers",
+                "{{transferId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "list outgoing transfers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/transfers",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "transfers"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "list incoming transfers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/transfers/incoming",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "transfers",
+                "incoming"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "settlements",
+      "item": [
+        {
+          "name": "list reconciliations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/settlements",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "settlements"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "reconcile now",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/api/settlements/reconcile",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "settlements",
+                "reconcile"
+              ]
+            },
+            "description": "Needs the `admin` role: log in as sim-admin."
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "payerMsisdn",
+      "value": "2389910000"
+    },
+    {
+      "key": "payeeMsisdn",
+      "value": "2389920000"
+    },
+    {
+      "key": "msisdn",
+      "value": "2389910001"
+    },
+    {
+      "key": "fspId",
+      "value": "cvtest"
+    },
+    {
+      "key": "customerId",
+      "value": ""
+    },
+    {
+      "key": "accountId",
+      "value": ""
+    },
+    {
+      "key": "partyId",
+      "value": ""
+    },
+    {
+      "key": "transferId",
+      "value": ""
+    }
+  ]
+}

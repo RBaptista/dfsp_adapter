@@ -1,6 +1,7 @@
 package cv.sitech.adapter.out.entity;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -16,6 +17,7 @@ public class CustomerEntity {
   private ContactEntity contact;
   private String address;
   private Long nif;
+  private String dfspId;
 
   @Id
   @GeneratedValue
@@ -59,6 +61,15 @@ public class CustomerEntity {
 
   public void setNif(Long nif) {
     this.nif = nif;
+  }
+
+  @Column(name = "dfsp_id")
+  public String getDfspId() {
+    return dfspId;
+  }
+
+  public void setDfspId(String dfspId) {
+    this.dfspId = dfspId;
   }
 
 }

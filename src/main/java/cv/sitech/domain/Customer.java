@@ -6,12 +6,14 @@ public class Customer {
   private Contact contact;
   private String address;
   private Long nif;
+  private String dfspId;
 
-  public Customer(String name, Contact contact, String address, Long nif) {
+  public Customer(String name, Contact contact, String address, Long nif, String dfspId) {
     this.name = name;
     this.contact = contact;
     this.address = address;
     this.nif = nif;
+    this.dfspId = dfspId;
   }
 
   public Long getId() {
@@ -52,6 +54,14 @@ public class Customer {
 
   public void setNif(Long nif) {
     this.nif = nif;
+  }
+
+  public String getDfspId() {
+    return dfspId;
+  }
+
+  public void setDfspId(String dfspId) {
+    this.dfspId = dfspId;
   }
 
 }

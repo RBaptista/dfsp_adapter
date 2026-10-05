@@ -5,13 +5,14 @@ import java.util.List;
 import cv.sitech.domain.Contact;
 import cv.sitech.domain.Customer;
 
+/** All operations are scoped to the DFSP {@code fspId}. */
 public interface CustomerUseCase {
-  Customer create(String name, Contact contact, String address, Long nif);
+  Customer create(String fspId, String name, Contact contact, String address, Long nif);
 
-  Customer findById(Long id);
+  Customer findById(String fspId, Long id);
 
-  List<Customer> findAll();
+  List<Customer> findAll(String fspId);
 
-  Customer update(Long id, String name, Contact contact, String address, Long nif);
+  Customer update(String fspId, Long id, String name, Contact contact, String address, Long nif);
 
 }

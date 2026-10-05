@@ -1,23 +1,25 @@
 package cv.sitech.domain;
 
+import java.math.BigDecimal;
+
 public class Dfsp {
   private String fspId;
   private String displayName;
   private CurrencyEnum currency;
   private String callbackBaseUrl;
-  private Long netDebitCap;
-  private Long initialPosition;
-  private Long initialFunds;
+  private BigDecimal netDebitCap;
+  private BigDecimal initialPosition;
+  private BigDecimal initialFunds;
 
-  public Dfsp(String fspId, String displayName, CurrencyEnum currency, String callbackBaseUrl, Long netDebitCap,
-      Long initialPosition, Long initialFunds) {
+  public Dfsp(String fspId, String displayName, CurrencyEnum currency, String callbackBaseUrl,
+      BigDecimal netDebitCap, BigDecimal initialPosition, BigDecimal initialFunds) {
     this.fspId = fspId;
     this.displayName = displayName;
     this.currency = currency;
     this.callbackBaseUrl = callbackBaseUrl;
-    this.netDebitCap = netDebitCap != null ? netDebitCap : 0L;
-    this.initialPosition = initialPosition != null ? initialPosition : 0L;
-    this.initialFunds = initialFunds != null ? initialFunds : 0L;
+    this.netDebitCap = netDebitCap != null ? netDebitCap : BigDecimal.ZERO;
+    this.initialPosition = initialPosition != null ? initialPosition : BigDecimal.ZERO;
+    this.initialFunds = initialFunds != null ? initialFunds : BigDecimal.ZERO;
   }
 
   public String getFspId() {
@@ -52,27 +54,27 @@ public class Dfsp {
     this.callbackBaseUrl = callbackBaseUrl;
   }
 
-  public Long getNetDebitCap() {
+  public BigDecimal getNetDebitCap() {
     return netDebitCap;
   }
 
-  public void setNetDebitCap(Long netDebitCap) {
+  public void setNetDebitCap(BigDecimal netDebitCap) {
     this.netDebitCap = netDebitCap;
   }
 
-  public Long getInitialPosition() {
+  public BigDecimal getInitialPosition() {
     return initialPosition;
   }
 
-  public void setInitialPosition(Long initialPosition) {
+  public void setInitialPosition(BigDecimal initialPosition) {
     this.initialPosition = initialPosition;
   }
 
-  public Long getInitialFunds() {
+  public BigDecimal getInitialFunds() {
     return initialFunds;
   }
 
-  public void setInitialFunds(Long initialFunds) {
+  public void setInitialFunds(BigDecimal initialFunds) {
     this.initialFunds = initialFunds;
   }
 

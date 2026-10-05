@@ -18,7 +18,7 @@ public class PartyEntity {
 
   private AccountEntity account;
 
-  private String msisdn;
+  private String idValue;
 
   @Id
   @GeneratedValue
@@ -30,7 +30,7 @@ public class PartyEntity {
     this.id = id;
   }
 
-  @Column(name = "id_type")
+  @Column(name = "id_type", nullable = false)
   public String getIdType() {
     return idType;
   }
@@ -49,13 +49,13 @@ public class PartyEntity {
     this.account = account;
   }
 
-  @Column(name = "msisdn", nullable = false, unique = true)
-  public String getMsisdn() {
-    return msisdn;
+  @Column(name = "id_value", nullable = false)
+  public String getIdValue() {
+    return idValue;
   }
 
-  public void setMsisdn(String msisdn) {
-    this.msisdn = msisdn;
+  public void setIdValue(String idValue) {
+    this.idValue = idValue;
   }
 
 }

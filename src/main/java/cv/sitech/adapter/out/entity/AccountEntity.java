@@ -16,7 +16,9 @@ public class AccountEntity {
   private Long id;
   private CustomerEntity customer;
   private BigDecimal balance = BigDecimal.ZERO;
-  private Float reservedBalance;
+  private BigDecimal reservedBalance = BigDecimal.ZERO;
+  private BigDecimal pendingCredit = BigDecimal.ZERO;
+  private String type;
   private DfspEntity dfsp;
 
   @Id
@@ -48,12 +50,29 @@ public class AccountEntity {
   }
 
   @Column(name = "reserved_balance")
-  public Float getReservedBalance() {
+  public BigDecimal getReservedBalance() {
     return reservedBalance;
   }
 
-  public void setReservedBalance(Float reservedBalance) {
+  public void setReservedBalance(BigDecimal reservedBalance) {
     this.reservedBalance = reservedBalance;
+  }
+
+  @Column(name = "pending_credit")
+  public BigDecimal getPendingCredit() {
+    return pendingCredit;
+  }
+
+  public void setPendingCredit(BigDecimal pendingCredit) {
+    this.pendingCredit = pendingCredit;
+  }
+
+  public String getType() {
+    return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
   }
 
   @ManyToOne

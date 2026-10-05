@@ -2,18 +2,19 @@ package cv.sitech.application.port.in;
 
 import java.util.List;
 
-import cv.sitech.domain.Account;
 import cv.sitech.domain.IdTypeEnum;
 import cv.sitech.domain.Party;
 
+/** All operations are scoped to the DFSP {@code fspId}; parties are registered in the hub's ALS. */
 public interface PartyUseCase {
-  Party create(IdTypeEnum idType, Account account, String msisdn);
+  Party create(String fspId, IdTypeEnum idType, String idValue, Long accountId);
 
-  Party findById(Long id);
+  Party findById(String fspId, Long id);
 
-  List<Party> findAll();
+  List<Party> findAll(String fspId);
 
-  Party update(Long id, IdTypeEnum idType, String msisdn);
+  void delete(String fspId, Long id);
 
-  void delete(Long id);
+  /** registers an existing party in the hub's ALS again, e.g. after the hub was reset */
+  Party register(String fspId, Long id);
 }
